@@ -1,0 +1,41 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.1.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'com.torrent'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+ext {
+    bt = "1.9"
+    lombok = "1.18.10"
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://4thline.org/m2/'
+    }
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-websocket"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    compileOnly "org.projectlombok:lombok:$lombok"
+    annotationProcessor "org.projectlombok:lombok:$lombok"
+    runtime "com.h2database:h2"
+
+    compile "com.github.atomashpolskiy:bt-core:$bt"
+    compile "com.github.atomashpolskiy:bt-http-tracker-client:$bt"
+    compile "com.github.atomashpolskiy:bt-dht:$bt"
+    compile "com.github.atomashpolskiy:bt-upnp:$bt"
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
